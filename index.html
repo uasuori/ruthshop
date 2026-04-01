@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grand Luminaire - El Mejor Hotel del Mundo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Playfair+Display:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        /* Variables de Teoría del Color - Estética de Lujo */
+        :root {
+            --primary-color: #0A192F; /* Azul marino profundo */
+            --accent-color: #D4AF37; /* Dorado metálico */
+            --text-light: #F8F9FA;
+            --text-dark: #333333;
+            --bg-light: #FFFFFF;
+            --bg-section: #F4F4F4;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+            color: var(--primary-color);
+        }
+
+        /* Navbar */
+        header {
+            position: fixed;
+            width: 100%;
+            background: rgba(10, 25, 47, 0.95);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .logo {
+            color: var(--accent-color);
+            font-size: 1.8rem;
+            font-family: 'Playfair Display', serif;
+            text-decoration: none;
+        }
+
+        nav a {
+            color: var(--text-light);
+            text-decoration: none;
+            margin-left: 2rem;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Hero Slider */
+        .slider-container {
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+            background-color: var(--primary-color);
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .slide::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4); /* Overlay para legibilidad */
+            z-index: 1;
+        }
+
+        .slide.active {
+            opacity: 1;
+        }
+
+        .slide-content {
+            position: relative;
+            z-index: 2;
+            color: var(--text-light);
+            max-width: 800px;
+            padding: 0 20px;
+        }
+
+        .slide-content h1 {
+            color: var(--text-light);
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .slide-content p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Botones */
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            background-color: var(--accent-color);
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 4px;
+            transition: transform 0.3s, background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #E5C158;
+            transform: translateY(-3px);
+        }
+
+        /* Sección Ofertas */
+        .promotions {
+            padding: 80px 5%;
+            background-color: var(--bg-section);
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background: var(--accent-color);
+            margin: 15px auto 0;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background: var(--bg-light);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+        }
+
+        .card-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .card-body {
+            padding: 25px;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .price {
+            color: var(--accent-color);
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin: 15px 0;
+            display: block;
+        }
+
+        /* Reservas & Call to Action */
+        .booking-section {
+            background: linear-gradient(rgba(10, 25, 47, 0.9), rgba(10, 25, 47, 0.9)), url('https://images.unsplash.com/photo-1542314831-c6a4d27ce66b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover;
+            color: var(--text-light);
+            text-align: center;
+            padding: 100px 5%;
+        }
+
+        .booking-section h2 {
+            color: var(--text-light);
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .whatsapp-cta {
+            background-color: #25D366;
+            color: white;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 30px;
+            transition: background-color 0.3s;
+        }
+
+        .whatsapp-cta:hover {
+            background-color: #128C7E;
+        }
+
+        /* Botón Flotante WhatsApp */
+        .float-whatsapp {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            bottom: 40px;
+            right: 40px;
+            background-color: #25d366;
+            color: #FFF;
+            border-radius: 50px;
+            text-align: center;
+            font-size: 35px;
+            box-shadow: 2px 2px 10px rgba(0,0,0,0.2);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: transform 0.3s;
+        }
+
+        .float-whatsapp:hover {
+            transform: scale(1.1);
+        }
+
+        /* Footer */
+        footer {
+            background-color: #050C17;
+            color: var(--text-light);
+            text-align: center;
+            padding: 30px 20px;
+            font-size: 0.9rem;
+        }
+
+        /* Controles Slider */
+        .slider-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: none;
+            padding: 20px;
+            cursor: pointer;
+            z-index: 10;
+            font-size: 20px;
+            transition: background 0.3s;
+        }
+        .slider-btn:hover { background: rgba(255,255,255,0.4); }
+        .prev { left: 20px; }
+        .next { right: 20px; }
+
+        @media (max-width: 768px) {
+            .slide-content h1 { font-size: 2.5rem; }
+            nav { display: none; /* Simplificado para móvil */ }
+            .booking-section { padding: 60px 5%; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="#" class="logo">Grand Luminaire</a>
+        <nav>
+            <a href="#inicio">Inicio</a>
+            <a href="#promociones">Ofertas</a>
+            <a href="#reservas">Reservas</a>
+        </nav>
+    </header>
+
+    <section id="inicio" class="slider-container">
+        <div class="slide active" style="background-image: url('https://images.unsplash.com/photo-1590490360182-c33d57733427?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');">
+            <div class="slide-content">
+                <h1>El Estándar Global de Lujo</h1>
+                <p>Habitaciones y suites diseñadas para el descanso perfecto y la máxima exclusividad.</p>
+                <a href="#reservas" class="btn">Descubrir Más</a>
+            </div>
+        </div>
+        <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');">
+            <div class="slide-content">
+                <h1>Alta Cocina Internacional</h1>
+                <p>Restaurantes galardonados con menús curados por chefs de renombre mundial.</p>
+                <a href="#reservas" class="btn">Reservar Mesa</a>
+            </div>
+        </div>
+        <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1540541338287-41700207dee6?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');">
+            <div class="slide-content">
+                <h1>Experiencias Inolvidables</h1>
+                <p>Salones de eventos majestuosos y áreas de recreación para viajeros exigentes.</p>
+                <a href="#promociones" class="btn">Ver Paquetes</a>
+            </div>
+        </div>
+
+        <button class="slider-btn prev" onclick="changeSlide(-1)"><i class="fas fa-chevron-left"></i></button>
+        <button class="slider-btn next" onclick="changeSlide(1)"><i class="fas fa-chevron-right"></i></button>
+    </section>
+
+    <section id="promociones" class="promotions">
+        <h2 class="section-title">Promociones y Paquetes</h2>
+        <div class="grid-container">
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1522771731478-44eb10e5c776?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Paquete Familiar" class="card-img">
+                <div class="card-body">
+                    <h3 class="card-title">Escapada Familiar</h3>
+                    <p>Disfruten de habitaciones conectadas, desayuno buffet internacional y acceso ilimitado a las áreas recreativas.</p>
+                    <span class="price">-20% en estancias de 3+ noches</span>
+                    <a href="https://wa.me/59178527878?text=Hola,%20quisiera%20información%20sobre%20el%20Paquete%20Familiar" target="_blank" class="btn" style="width: 100%; text-align: center; margin-top: 10px;">Consultar</a>
+                </div>
+            </div>
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Suite Presidencial" class="card-img">
+                <div class="card-body">
+                    <h3 class="card-title">Experiencia Presidencial</h3>
+                    <p>Lujo absoluto. Incluye transfer privado al aeropuerto, cena degustación de 5 tiempos y servicio de mayordomo 24/7.</p>
+                    <span class="price">Oferta de Temporada</span>
+                    <a href="https://wa.me/59178527878?text=Hola,%20quisiera%20reservar%20la%20Experiencia%20Presidencial" target="_blank" class="btn" style="width: 100%; text-align: center; margin-top: 10px;">Consultar</a>
+                </div>
+            </div>
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1527529482837-4698179dc6ce?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Spa y Relajación" class="card-img">
+                <div class="card-body">
+                    <h3 class="card-title">Retiro de Bienestar</h3>
+                    <p>Acceso total a nuestro spa de clase mundial, masajes para parejas y circuito de hidroterapia relajante.</p>
+                    <span class="price">2x1 en tratamientos de Spa</span>
+                    <a href="https://wa.me/59178527878?text=Hola,%20quisiera%20información%20sobre%20el%20Retiro%20de%20Bienestar" target="_blank" class="btn" style="width: 100%; text-align: center; margin-top: 10px;">Consultar</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="reservas" class="booking-section">
+        <h2>Atención Personalizada a un Clic</h2>
+        <p>Nuestro equipo de conserjería está listo para organizar cada detalle de su estadía. Reserve ahora asegurando la mejor tarifa garantizada.</p>
+        <a href="https://wa.me/59178527878?text=Hola,%20deseo%20hacer%20una%20reserva%20en%20su%20hotel" target="_blank" class="whatsapp-cta">
+            <i class="fab fa-whatsapp" style="font-size: 1.5rem;"></i> Reservar vía WhatsApp (+591 78527878)
+        </a>
+    </section>
+
+    <a href="https://wa.me/59178527878" class="float-whatsapp" target="_blank" aria-label="Contactar por WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <footer>
+        <p>&copy; 2026 Grand Luminaire Hotel. El destino del mundo. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+
+        function showSlide(index) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            if (index >= slides.length) currentSlide = 0;
+            if (index < 0) currentSlide = slides.length - 1;
+            slides[currentSlide].classList.add('active');
+        }
+
+        function changeSlide(direction) {
+            currentSlide += direction;
+            showSlide(currentSlide);
+        }
+
+        // Auto avance cada 6 segundos
+        setInterval(() => {
+            changeSlide(1);
+        }, 6000);
+    </script>
+</body>
+</html>
